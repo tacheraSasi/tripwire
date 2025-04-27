@@ -1,13 +1,15 @@
 package main
 
 import (
-	"errors"
+	"os"
 
 	errorshandler "github.com/tacheraSasi/tripwire.git/errorsHandler"
 )
 
 
 func main() {
-	err := errors.New("this is an error")
-	errorshandler.Check(err,"an error occurred")
+	filename := "nonexistent.txt"
+	file, err := os.Open(filename)
+	errorshandler.Panic(err,"an error occurred while opening the file"+filename)
+	defer file.Close()
 }
