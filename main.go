@@ -1,6 +1,13 @@
 package main
 
+import (
+	"errors"
+
+	errorshandler "github.com/tacheraSasi/tripwire.git/errorsHandler"
+)
+
+
 func main() {
-	// This is a simple Go program that prints "Hello, World!" to the console.
-	println("Hello, World!")
+	err := errors.New("this is an error")
+	errorshandler.Check(err)
 }
