@@ -1,10 +1,27 @@
 package errorshandler
 
-import "github.com/tacheraSasi/tripwire.git/utils"
+import (
+	"os"
+
+	"github.com/tacheraSasi/tripwire.git/utils"
+)
 
 func Check(err error, msg string) {
 	if err != nil {
-		utils.Print(msg)
+		utils.Print(msg, err)
+		os.Exit(1)
+	}
+}
+
+func CheckNoExit(err error, msg string) {
+	if err != nil {
+		utils.Print(msg, err)
+	}
+}
+
+func Panic(err error, msg string) {
+	if err != nil {
+		utils.Print(msg, err)
 		panic(err)
 	}
 }

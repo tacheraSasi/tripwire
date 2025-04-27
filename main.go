@@ -9,5 +9,5 @@ import (
 
 func main() {
 	err := errors.New("this is an error")
-	errorshandler.Check(err)
+	errorshandler.Check(err,"an error occurred")
 }
