@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	errorshandler "github.com/tacheraSasi/tripwire.git/errorsHandler"
-	"github.com/tacheraSasi/tripwire.git/utils"
+	errorshandler "github.com/tacheraSasi/tripwire/errorsHandler"
+	"github.com/tacheraSasi/tripwire/utils"
 )
 
 func main() {

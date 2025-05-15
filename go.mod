@@ -1,3 +1,3 @@
-module github.com/tacheraSasi/tripwire.git
+module github.com/tacheraSasi/tripwire
 
 go 1.24.2

@@ -3,7 +3,7 @@ package errorshandler
 import (
 	"os"
 
-	"github.com/tacheraSasi/tripwire.git/utils"
+	"github.com/tacheraSasi/tripwire/utils"
 )
 
 func Check(err error, msg string) {
