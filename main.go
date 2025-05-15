@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	filename := "nonexistent.txt"
+	filename := "LICENSE"
 	file, err := os.Open(filename)
 	output := utils.Ternary(err != nil, err, nil)
 	fmt.Println("Output", output)
