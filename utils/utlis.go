@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io"
 	"math/rand"
-	"time"
 )
 
 // Print prints the provided arguments to standard output.
@@ -79,10 +78,30 @@ func UniqueStrings(input []string) []string {
 // RandomString generates a random string of the given length using letters and digits.
 func RandomString(length int) string {
 	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-	rand.Seed(time.Now().UnixNano())
 	b := make([]byte, length)
 	for i := range b {
 		b[i] = charset[rand.Intn(len(charset))]
 	}
 	return string(b)
+}
+
+// IntInSlice returns true if the target int is found in the slice.
+func IntInSlice(target int, list []int) bool {
+	for _, v := range list {
+		if v == target {
+			return true
+		}
+	}
+	return false
+}
+
+// Clamp restricts x to the range [min, max].
+func Clamp[T ~int | ~float64](x, min, max T) T {
+	if x < min {
+		return min
+	}
+	if x > max {
+		return max
+	}
+	return x
 }
