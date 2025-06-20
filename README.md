@@ -90,6 +90,86 @@ import (
   v := utils.Clamp(10, 0, 5) // v == 5
   v2 := utils.Clamp(-1.5, 0.0, 1.0) // v2 == 0.0
   ```
+- **IsLinux**: Check if the OS is Linux.
+  ```go
+  if utils.IsLinux() { /* ... */ }
+  ```
+- **IsMac**: Check if the OS is macOS.
+  ```go
+  if utils.IsMac() { /* ... */ }
+  ```
+- **IsWindows**: Check if the OS is Windows.
+  ```go
+  if utils.IsWindows() { /* ... */ }
+  ```
+- **GetEnvOrDefault**: Get an environment variable or a default value.
+  ```go
+  val := utils.GetEnvOrDefault("HOME", "/tmp")
+  ```
+- **FileExists**: Check if a file exists.
+  ```go
+  exists := utils.FileExists("myfile.txt")
+  ```
+- **DirExists**: Check if a directory exists.
+  ```go
+  exists := utils.DirExists("/tmp")
+  ```
+- **JoinStrings**: Join a slice of strings with a separator.
+  ```go
+  s := utils.JoinStrings(",", []string{"a", "b"}) // "a,b"
+  ```
+- **SplitAndTrim**: Split a string and trim whitespace.
+  ```go
+  parts := utils.SplitAndTrim("a, b, c", ",") // ["a", "b", "c"]
+  ```
+- **PadLeft**: Pad a string on the left.
+  ```go
+  padded := utils.PadLeft("42", 5, '0') // "00042"
+  ```
+- **PadRight**: Pad a string on the right.
+  ```go
+  padded := utils.PadRight("go", 4, '-') // "go--"
+  ```
+- **GenerateRandInt**: Generate a random integer in a range.
+  ```go
+  n := utils.GenerateRandInt(10, 20)
+  ```
+- **GenerateRandFloat**: Generate a random float in a range.
+  ```go
+  f := utils.GenerateRandFloat(0.5, 2.5)
+  ```
+- **Min**: Get the minimum of two values.
+  ```go
+  m := utils.Min(3, 7) // 3
+  ```
+- **Max**: Get the maximum of two values.
+  ```go
+  m := utils.Max(3.2, 7.1) // 7.1
+  ```
+- **Abs**: Get the absolute value.
+  ```go
+  a := utils.Abs(-5) // 5
+  ```
+- **ContainsAny**: Check if a string contains any of the substrings.
+  ```go
+  found := utils.ContainsAny("hello world", []string{"foo", "world"}) // true
+  ```
+- **RemoveEmptyStrings**: Remove empty strings from a slice.
+  ```go
+  cleaned := utils.RemoveEmptyStrings([]string{"a", "", "b"}) // ["a", "b"]
+  ```
+- **RepeatString**: Repeat a string n times.
+  ```go
+  s := utils.RepeatString("go", 3) // "gogogo"
+  ```
+- **TruncateString**: Truncate a string to a max length.
+  ```go
+  t := utils.TruncateString("hello world", 5) // "he..."
+  ```
+- **ChunkSlice**: Split a slice into chunks.
+  ```go
+  chunks := utils.ChunkSlice([]int{1,2,3,4,5}, 2) // [[1 2] [3 4] [5]]
+  ```
 
 ## Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
