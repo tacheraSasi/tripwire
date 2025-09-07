@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"bufio"
 	"fmt"
 	"io"
 	"math/rand"
@@ -270,4 +271,30 @@ func ChunkSlice[T any](s []T, size int) [][]T {
 	}
 	chunks = append(chunks, s)
 	return chunks
+}
+
+// GetOS returns the current operating system as a string: "windows", "linux", or "mac".
+func GetOS() string {
+	switch os := runtime.GOOS; os {
+	case "darwin":
+		return "mac"
+	case "linux":
+		return "linux"
+	case "windows":
+		return "windows"
+	default:
+		return "unknown"
+	}
+}
+
+
+// GetInput prompts the user for input and returns the trimmed string.
+func GetInput(promptText string) (string, error) {
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print(promptText, " ")
+	input, err := reader.ReadString('\n')
+	if err != nil {
+		return "", err
+	}
+	return strings.TrimSpace(input), nil
 }
