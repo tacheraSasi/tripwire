@@ -5,6 +5,7 @@ import (
 	"os"
 
 	errorshandler "github.com/tacheraSasi/tripwire/errorsHandler"
+	"github.com/tacheraSasi/tripwire/types"
 	"github.com/tacheraSasi/tripwire/utils"
 )
 
@@ -52,4 +53,28 @@ func main() {
 
 	// ContainsAny
 	fmt.Println("ContainsAny:", utils.ContainsAny("hello world", []string{"foo", "world"}))
+
+
+	// Types package usage
+	// --- Normal union ---
+	s := types.New("hello")
+	n := types.New(42)
+	f := types.New(3.14)
+	b := types.New(true)
+
+	fmt.Println("String:", s.String())
+	fmt.Println("Int:", n.String())
+	fmt.Println("Float:", f.String())
+	fmt.Println("Bool:", b.String())
+
+	// --- Optional / nullable union ---
+	var maybeName types.Union[string] = types.None[string]()
+	if !maybeName.IsSome() {
+		fmt.Println("No name set")
+	}
+
+	maybeName = types.New("Tach")
+	if name, ok := maybeName.Get(); ok {
+		fmt.Println("Name:", name)
+	}
 }
