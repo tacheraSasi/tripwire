@@ -8,12 +8,14 @@ Tripwire is a simple Go utility library for error handling and utility functions
 ## Features
 
 - Idiomatic error handling helpers
+- Colorful terminal logger with multiple log levels
+- Generic union types for optional values
 - Generic utility functions (e.g., ternary, slice helpers, random string)
 - Easy to use and extend
 
 ## Installation
 
-```
+```go
 go get github.com/tacheraSasi/tripwire
 ```
 
@@ -24,6 +26,8 @@ Import the packages:
 ```go
 import (
     "github.com/tacheraSasi/tripwire/errorsHandler"
+    "github.com/tacheraSasi/tripwire/logger"
+    "github.com/tacheraSasi/tripwire/types"
     "github.com/tacheraSasi/tripwire/utils"
 )
 ```
@@ -46,6 +50,104 @@ import (
 
   ```go
   errorsHandler.Panic(err, "Critical error")
+  ```
+
+### Logging
+
+The logger package provides a colorful, thread-safe terminal logger with multiple log levels and caller information.
+
+- **Creating a logger**: Create a new logger instance.
+
+  ```go
+  log := logger.New()
+  ```
+
+- **Using the default logger**: Use package-level functions for convenience.
+
+  ```go
+  logger.Info("Application started")
+  logger.Debug("Debug information: %s", debugInfo)
+  logger.Warn("This is a warning")
+  logger.Error("An error occurred: %v", err)
+  logger.Fatal("Critical error, exiting") // Exits the program
+  ```
+
+- **Setting log level**: Control which messages are displayed.
+
+  ```go
+  logger.SetLevel(logger.DEBUG) // Show all messages
+  logger.SetLevel(logger.WARN)  // Show only WARN, ERROR, and FATAL
+  ```
+
+- **Configuring logger**: Customize logger behavior.
+
+  ```go
+  log := logger.New()
+  log.SetLevel(logger.INFO)
+  log.SetOutput(os.Stderr)
+  log.SetShowCaller(false) // Disable caller information
+  
+  log.Info("Custom logger message")
+  ```
+
+- **Log levels**: Available log levels in order of severity.
+
+  ```go
+  logger.DEBUG // Detailed debug information
+  logger.INFO  // General information
+  logger.WARN  // Warning messages
+  logger.ERROR // Error messages
+  logger.FATAL // Fatal errors (exits program)
+  ```
+
+### Union Types
+
+The types package provides generic union types for handling optional values, similar to Rust's Option type.
+
+- **Creating a union with a value**:
+
+  ```go
+  strValue := types.New("hello")
+  intValue := types.New(42)
+  floatValue := types.New(3.14)
+  boolValue := types.New(true)
+  ```
+
+- **Creating an empty union**:
+
+  ```go
+  empty := types.None[string]()
+  ```
+
+- **Checking if union has a value**:
+
+  ```go
+  if strValue.IsSome() {
+      fmt.Println("Has value")
+  }
+  ```
+
+- **Getting the value safely**:
+
+  ```go
+  if value, ok := strValue.Get(); ok {
+      fmt.Println("Value:", value)
+  } else {
+      fmt.Println("No value")
+  }
+  ```
+
+- **Getting the value (panic if nil)**:
+
+  ```go
+  value := strValue.MustGet() // Panics if union has no value
+  ```
+
+- **String representation**:
+
+  ```go
+  fmt.Println(strValue.String()) // Prints the value
+  fmt.Println(empty.String())    // Prints "<nil>"
   ```
 
 ### Utilities
