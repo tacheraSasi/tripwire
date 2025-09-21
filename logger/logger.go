@@ -30,11 +30,11 @@ type Logger struct {
 	level      LogLevel
 	showCaller bool
 	colors     struct {
-		debug *color.Color
-		info  *color.Color
-		warn  *color.Color
-		error *color.Color
-		fatal *color.Color
+		debug     *color.Color
+		info      *color.Color
+		warn      *color.Color
+		error     *color.Color
+		fatal     *color.Color
 		timestamp *color.Color
 		caller    *color.Color
 		message   *color.Color
@@ -84,33 +84,33 @@ func (l *Logger) SetShowCaller(show bool) {
 }
 
 // Debug logs a debug message
-func (l *Logger) Debug(format string, v ...interface{}) {
+func (l *Logger) Debug(format string, v ...any) {
 	l.log(DEBUG, format, v...)
 }
 
 // Info logs an info message
-func (l *Logger) Info(format string, v ...interface{}) {
+func (l *Logger) Info(format string, v ...any) {
 	l.log(INFO, format, v...)
 }
 
 // Warn logs a warning message
-func (l *Logger) Warn(format string, v ...interface{}) {
+func (l *Logger) Warn(format string, v ...any) {
 	l.log(WARN, format, v...)
 }
 
 // Error logs an error message
-func (l *Logger) Error(format string, v ...interface{}) {
+func (l *Logger) Error(format string, v ...any) {
 	l.log(ERROR, format, v...)
 }
 
 // Fatal logs a fatal message and exits the program
-func (l *Logger) Fatal(format string, v ...interface{}) {
+func (l *Logger) Fatal(format string, v ...any) {
 	l.log(FATAL, format, v...)
 	os.Exit(1)
 }
 
 // log is the internal logging method
-func (l *Logger) log(level LogLevel, format string, v ...interface{}) {
+func (l *Logger) log(level LogLevel, format string, v ...any) {
 	if level < l.level {
 		return
 	}
@@ -126,13 +126,18 @@ func (l *Logger) log(level LogLevel, format string, v ...interface{}) {
 	if l.showCaller {
 		_, file, line, ok := runtime.Caller(2) // 2 levels up the call stack
 		if ok {
-			// Shorten file path for better readability
-			parts := strings.Split(file, "/")
-			if len(parts) > 2 {
-				callerInfo = fmt.Sprintf("%s/%s:%d", 
-					parts[len(parts)-2], parts[len(parts)-1], line)
+			// Skip showing caller info if it's from the logger package itself
+			if strings.Contains(file, "/logger/logger.go") {
+				callerInfo = ""
 			} else {
-				callerInfo = fmt.Sprintf("%s:%d", file, line)
+				// Shorten file path for better readability
+				parts := strings.Split(file, "/")
+				if len(parts) > 2 {
+					callerInfo = fmt.Sprintf("%s/%s:%d",
+						parts[len(parts)-2], parts[len(parts)-1], line)
+				} else {
+					callerInfo = fmt.Sprintf("%s:%d", file, line)
+				}
 			}
 		}
 	}
@@ -187,23 +192,23 @@ func (l *Logger) log(level LogLevel, format string, v ...interface{}) {
 var defaultLogger = New()
 
 // Package-level functions for easy access
-func Debug(format string, v ...interface{}) {
+func Debug(format string, v ...any) {
 	defaultLogger.Debug(format, v...)
 }
 
-func Info(format string, v ...interface{}) {
+func Info(format string, v ...any) {
 	defaultLogger.Info(format, v...)
 }
 
-func Warn(format string, v ...interface{}) {
+func Warn(format string, v ...any) {
 	defaultLogger.Warn(format, v...)
 }
 
-func Error(format string, v ...interface{}) {
+func Error(format string, v ...any) {
 	defaultLogger.Error(format, v...)
 }
 
-func Fatal(format string, v ...interface{}) {
+func Fatal(format string, v ...any) {
 	defaultLogger.Fatal(format, v...)
 }
 
