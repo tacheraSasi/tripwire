@@ -340,6 +340,32 @@ The types package provides generic union types for handling optional values, sim
   chunks := utils.ChunkSlice([]int{1,2,3,4,5}, 2) // [[1 2] [3 4] [5]]
   ```
 
+- **GetOS**: Get the current operating system as a string.
+
+  ```go
+  os := utils.GetOS() // "mac", "linux", "windows", or "unknown"
+  ```
+
+- **GetInput**: Prompt the user for input and return the trimmed string.
+
+  ```go
+  name, err := utils.GetInput("Enter your name:")
+  if err != nil {
+      // handle error
+  }
+  fmt.Println("Hello,", name)
+  ```
+
+- **AskForConfirmation**: Prompt the user with a yes/no question.
+
+  ```go
+  if utils.AskForConfirmation("Do you want to continue?") {
+      fmt.Println("Continuing...")
+  } else {
+      fmt.Println("Cancelled")
+  }
+  ```
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.

@@ -298,3 +298,11 @@ func GetInput(promptText string) (string, error) {
 	}
 	return strings.TrimSpace(input), nil
 }
+
+// AskForConfirmation prompts the user with a yes/no question and returns true for 'y' and false for 'n' or default.
+func AskForConfirmation(prompt string) bool {
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Printf("%s [y/N]: ", prompt)
+	resp, _ := reader.ReadString('\n')
+	return strings.TrimSpace(strings.ToLower(resp)) == "y"
+}
